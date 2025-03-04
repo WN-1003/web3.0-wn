@@ -5,12 +5,9 @@ pragma solidity ^0.8.28;
 
 // Uncomment this line to use console.log
 // 如果需要在终端打印日志，取消注释下面这行代码
-// import "hardhat/console.sol";
+import "hardhat/console.sol";
 
-/**
- * @title Lock
- * @dev 一个简单的锁定合约，用于在指定时间后提取资金
- */
+// 一个简单的锁定合约，用于在指定时间后提取资金
 contract Lock {
     // 存储解锁时间的变量，使用 public 修饰符可以自动生成 getter 函数
     uint public unlockTime;
@@ -47,7 +44,7 @@ contract Lock {
     function withdraw() public {
         // Uncomment this line, and the import of "hardhat/console.sol", to print a log in your terminal
         // 如果需要在终端打印日志，取消注释下面这行代码和上面的 import 语句
-        // console.log("Unlock time is %o and block timestamp is %o", unlockTime, block.timestamp);
+        console.log("Unlock time is %o and block timestamp is %o", unlockTime, block.timestamp);
 
         // 检查当前时间是否已经超过解锁时间，如果没有则抛出错误
         require(block.timestamp >= unlockTime, "You can't withdraw yet");
