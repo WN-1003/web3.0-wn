@@ -23,5 +23,21 @@ contract Demo {
         require(success, "Function call failed");
         z = abi.decode(data, (uint256));
     }
-    
+
+
+    // 状态变量，用于存储函数选择器
+    bytes4 storedSelector;
+
+    // 函数：将选择器存储在状态变量 storedSelector 中
+    function storeSelector(bytes4 selector) public {
+        storedSelector = selector;
+    }
+
+    // 函数：调用存储在 storedSelector 中的函数，并返回结果
+    function executeStoredFunction(uint256 x) public returns (uint256 z) {
+        require(storedSelector != bytes4(0), "No function stored");
+        (bool success, bytes memory data) = address(this).call(abi.encodeWithSelector(storedSelector, x));
+        require(success, "Function call failed");
+        z = abi.decode(data, (uint256));
+    }
 }
