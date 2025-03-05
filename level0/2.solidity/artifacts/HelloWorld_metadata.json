@@ -47,10 +47,11 @@
 	},
 	"sources": {
 		"level0/2.solidity/Hello World.sol": {
-			"keccak256": "0x81d0f34521b8a08bbfc728dfa3bc9ec1cea84d700f37d327a4f6b3dd39fbbdad",
+			"keccak256": "0x56ad233bd912f459bf3b9f2046a00cbbae60b249f6569492183dbf83f3ddd37a",
+			"license": "MIT",
 			"urls": [
-				"bzz-raw://d0ad90c7e9b968d3c93991b90e1f0d419cee2abc46b6a19aaaad166d45d786c8",
-				"dweb:/ipfs/QmQzgGh37e9D1NVXTPRoND426BB1ZTgDSjuVshsfChQsp6"
+				"bzz-raw://3d7e52f3eea71988a1835c6fc059616876d93ead5cc79d3cd7b0d69d49be84bf",
+				"dweb:/ipfs/QmeLgQmBFrYTECjsPLAr7MceXuz6JzTk8J2x1TouGgvEZN"
 			]
 		}
 	},

@@ -1,6 +1,6 @@
-// SPDX-License-Identifier: UNLICENSED
 // 指定该合约使用的 SPDX 许可证标识符为未授权
-pragma solidity ^0.8.28;
+// SPDX-License-Identifier: UNLICENSED
+pragma solidity ^0.8.24;
 // 声明使用的 Solidity 版本，要求版本大于等于 0.8.28 且小于 0.9.0
 
 // Uncomment this line to use console.log
