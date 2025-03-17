@@ -12,5 +12,7 @@ npx hardhat node
 
 #部署项目
 npx hardhat ignition deploy ./ignition/modules/Lock.js
+#连接本地节点
+npx hardhat ignition deploy ./ignition/modules/Lock.js --network localhost
 # LockModule#Lock - 0x5FbDB2315678afecb367f032d93F642f64180aa3
 ```
