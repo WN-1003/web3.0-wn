@@ -15,4 +15,7 @@ npx hardhat ignition deploy ./ignition/modules/Lock.js
 #连接本地节点
 npx hardhat ignition deploy ./ignition/modules/Lock.js --network localhost
 # LockModule#Lock - 0x5FbDB2315678afecb367f032d93F642f64180aa3
+
+#连接sepolia网络
+npx hardhat ignition deploy ./ignition/modules/Lock.js --network sepolia
 ```
