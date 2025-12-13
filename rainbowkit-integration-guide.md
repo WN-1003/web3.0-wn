@@ -12,15 +12,15 @@ RainbowKit 是一个用于简化 Web3 应用中钱包连接和管理的前端工
 ## 三、集成步骤
 
 ### 1. 添加前端框架
-当前项目是一个纯 Hardhat 项目，需要先添加前端框架。我们以 React + Vite 为例：
+当前项目是一个纯 Hardhat 项目，需要先添加前端框架。我们以 React + Next.js 为例：
 
 ```shell
 # 在项目根目录创建前端目录
 mkdir frontend
 cd frontend
 
-# 初始化 Vite + React 项目
-npm create vite@latest . -- --template react
+# 初始化 Next.js 项目
+npx create-next-app@latest . --typescript
 
 # 安装依赖
 npm install
@@ -36,12 +36,15 @@ npm install @rainbow-me/rainbowkit wagmi ethers
 
 ### 3. 配置 RainbowKit
 
-#### 3.1 修改 main.jsx 文件
-```javascript
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
-import './index.css'
+#### 3.1 修改布局文件
+
+如果使用 Next.js 13+ App Router：
+
+```typescript
+// app/layout.tsx
+import type { Metadata } from 'next'
+import { Inter } from 'next/font/google'
+import './globals.css'
 
 // 导入 RainbowKit 和 wagmi
 import '@rainbow-me/rainbowkit/styles.css'
@@ -49,40 +52,54 @@ import { getDefaultConfig, RainbowKitProvider } from '@rainbow-me/rainbowkit'
 import { WagmiProvider } from 'wagmi'
 import { sepolia, hardhat } from 'wagmi/chains'
 
+const inter = Inter({ subsets: ['latin'] })
+
 // 配置 wagmi
 const config = getDefaultConfig({
   appName: 'Your DApp Name',
   projectId: 'YOUR_PROJECT_ID', // 需要在 WalletConnect 官网注册获取
   chains: [sepolia, hardhat],
-  ssr: false,
+  ssr: true, // Next.js 支持 SSR
 })
 
-// 包装应用组件
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <WagmiProvider config={config}>
-      <RainbowKitProvider>
-        <App />
-      </RainbowKitProvider>
-    </WagmiProvider>
-  </React.StrictMode>,
-)
-```
-
-#### 3.2 在 App.jsx 中使用 RainbowKit
-```javascript
-import { ConnectButton } from '@rainbow-me/rainbowkit'
-
-function App() {
-  return (
-    <div>
-      <h1>My DApp</h1>
-      <ConnectButton />
-    </div>
-  )
+export const metadata: Metadata = {
+  title: 'Web3 DApp',
+  description: 'Built with Next.js, RainbowKit and Hardhat',
 }
 
-export default App
+export default function RootLayout({
+  children,
+}: { children: React.ReactNode }) {
+  return (
+    <html lang="en">
+      <body className={inter.className}>
+        <WagmiProvider config={config}>
+          <RainbowKitProvider>
+            {children}
+          </RainbowKitProvider>
+        </WagmiProvider>
+      </body>
+    </html>
+  )
+}
+```
+
+#### 3.2 在页面中使用 RainbowKit
+
+如果使用 Next.js 13+ App Router：
+
+```typescript
+// app/page.tsx
+import { ConnectButton } from '@rainbow-me/rainbowkit'
+
+export default function Home() {
+  return (
+    <main className="min-h-screen p-8">
+      <h1 className="text-3xl font-bold mb-8">My DApp</h1>
+      <ConnectButton />
+    </main>
+  )
+}
 ```
 
 ### 4. 配置 WalletConnect Project ID
@@ -126,8 +143,12 @@ function LockContract() {
 ## 四、完整项目结构
 ```
 ├── frontend/           # 前端应用目录
-│   ├── src/            # 前端源代码
+│   ├── app/            # Next.js App Router 目录
+│   │   ├── layout.tsx  # 布局文件
+│   │   └── page.tsx    # 首页
+│   ├── public/         # 静态资源
 │   ├── package.json    # 前端依赖
+│   ├── next.config.js  # Next.js 配置
 │   └── ...
 ├── contracts/          # 智能合约文件
 ├── ignition/           # 部署配置
